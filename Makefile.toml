@@ -28,3 +28,11 @@ cd ./packages/minipub
 exec docker-compose up -d
 '''
 workspace = false
+
+[tasks.migrate]
+script_runner = "@duckscript"
+script = '''
+set_env DATABASE_URL ${DB_URL}/${DB_NAME}
+exec sea-orm-cli migrate refresh
+'''
+workspace = false

@@ -1,2 +1,2 @@
 [workspace]
-members = ["packages/minipub-core", "packages/minipub"]
+members = ["packages/minipub-core", "packages/minipub", "migration"]
