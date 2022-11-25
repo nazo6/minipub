@@ -1,0 +1,7 @@
+{
+  "rust-analyzer.checkOnSave.extraEnv": {
+    "DOMAIN": "example.com",
+    "PORT": "3000",
+    "LOCAL_HOST": "localhost"
+  }
+}
