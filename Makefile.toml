@@ -4,15 +4,19 @@ env_files = [{ path = "./env/dev.env", profile = "development" }]
 command = "cargo"
 args = ["build", "--release"]
 env_files = ["./env/prod.env"]
+workspace = false
 
 [tasks.dev]
 run_task = { name = ["watch", "tunnel"], parallel = true }
+workspace = false
 
 [tasks.watch]
 command = "cargo"
 args = ["run"]
-watch = { watch = ["./src/"] }
+watch = { watch = ["./packages/"] }
+workspace = false
 
 [tasks.tunnel]
 command = "lt"
 args = ["--port", "${PORT}", "-s", "${LOCALTUNNEL_SUBDOMAIN}"]
+workspace = false

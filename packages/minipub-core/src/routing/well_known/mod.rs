@@ -25,15 +25,20 @@ struct WebFingerResponseLink {
 }
 pub(crate) async fn webfinger_get(query: Query<WebFingerQuery>) -> Json<WebFingerResponse> {
     info!("webfinger_get query: {:?}", query);
-    let query_cap = regex::Regex::new(r"^acct:([^@]+)@(.+)$").unwrap().captures(&query.resource).unwrap();
+    let query_cap = regex::Regex::new(r"^acct:([^@]+)@(.+)$")
+        .unwrap()
+        .captures(&query.resource)
+        .unwrap();
     let user_name = query_cap.get(1).unwrap().as_str();
+    let domain = DOMAIN.get().unwrap();
+    let base_url = BASE_URL.get().unwrap();
     let response = WebFingerResponse {
-        subject: format!("acct:{}@{}", user_name, DOMAIN),
-        aliases: vec![format!("{}/user/{}", BASE_URL, user_name)],
+        subject: format!("acct:{}@{}", user_name, domain),
+        aliases: vec![format!("{}/user/{}", base_url, user_name)],
         links: vec![WebFingerResponseLink {
             rel: Some("self".to_string()),
             _type: "application/activity+json".to_string(),
-            href: Some(format!("{BASE_URL}/users/{}", user_name)),
+            href: Some(format!("{base_url}/users/{}", user_name)),
         }],
     };
 

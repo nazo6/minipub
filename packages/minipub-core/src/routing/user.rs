@@ -25,15 +25,16 @@ pub(crate) struct PersonActivity {
 pub(crate) async fn user_get(Path(user_id): Path<String>, host: Host) -> Json<PersonActivity> {
     info!("user_get: query: {:?}", user_id);
     info!("from: {:?}", host);
+    let base_url = BASE_URL.get().unwrap();
     Json(PersonActivity {
         context: "https://www.w3.org/ns/activitystreams".to_string(),
         _type: "Person".to_string(),
-        id: format!("{}/user/{}", BASE_URL, user_id),
+        id: format!("{}/user/{}", base_url, user_id),
         name: user_id.clone(),
         preferred_username: user_id.clone(),
         summary: "".to_string(),
-        inbox: format!("{}/user/{}/inbox", BASE_URL, user_id),
-        outbox: format!("{}/user/{}/outbox", BASE_URL, user_id),
-        url: format!("{}/user/{}", BASE_URL, user_id),
+        inbox: format!("{}/user/{}/inbox", base_url, user_id),
+        outbox: format!("{}/user/{}/outbox", base_url, user_id),
+        url: format!("{}/user/{}", base_url, user_id),
     })
 }
