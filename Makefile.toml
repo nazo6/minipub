@@ -7,7 +7,7 @@ env_files = ["./env/prod.env"]
 workspace = false
 
 [tasks.dev]
-run_task = { name = ["watch", "tunnel"], parallel = true }
+run_task = { name = ["watch", "tunnel", "start-mysql"], parallel = true }
 workspace = false
 
 [tasks.watch]
@@ -19,4 +19,12 @@ workspace = false
 [tasks.tunnel]
 command = "lt"
 args = ["--port", "${PORT}", "-s", "${LOCALTUNNEL_SUBDOMAIN}"]
+workspace = false
+
+[tasks.start-mysql]
+script_runner = "@duckscript"
+script = '''
+cd ./packages/minipub
+exec docker-compose up -d
+'''
 workspace = false

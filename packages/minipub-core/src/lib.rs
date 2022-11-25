@@ -14,6 +14,8 @@ pub struct Config {
     pub ui_domain: Option<String>,
     /// Url of database.
     pub db_url: String,
+    /// DB name.
+    pub db_name: String,
 }
 
 /// Start the server.
