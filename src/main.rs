@@ -6,8 +6,8 @@ use axum::{
 use serde::{Deserialize, Serialize};
 use tracing::info;
 
-static HOST: &str = "https://nazo6-minipub.loca.lt";
-static HOSTNAME: &str = "nazo6-minipub.loca.lt";
+static HOST: &str = "https://minipub.loca.lt";
+static HOSTNAME: &str = "minipub.loca.lt";
 
 #[tokio::main]
 async fn main() {
@@ -75,7 +75,7 @@ struct WebFingerResponseLink {
     href: Option<String>,
 }
 async fn webfinger_get_handler(query: Query<WebFingerQuery>) -> Json<WebFingerResponse> {
-    info!("webfinger_get: query: {:?}", query);
+    info!("webfinger_get query: {:?}", query);
     let query_cap = regex::Regex::new(r"^acct:([^@]+)@(.+)$")
         .unwrap()
         .captures(&query.resource)

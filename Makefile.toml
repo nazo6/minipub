@@ -1,0 +1,14 @@
+[tasks.build]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.dev]
+run_task = { name = ["watch", "tunnel"], parallel = true }
+
+[tasks.watch]
+command = "cargo"
+args = ["watch", "-x", "run"]
+
+[tasks.tunnel]
+command = "lt"
+args = ["--port", "3000", "-s", "minipub"]

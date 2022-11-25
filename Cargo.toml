@@ -9,7 +9,9 @@ edition = "2021"
 anyhow = "1.0.66"
 axum = { version = "0.5.17", features = ["headers"] }
 regex = "1.7.0"
-reqwest = "0.11.13"
+reqwest = { version = "0.11.13", features = [
+  "rustls",
+], default-features = false }
 serde = { version = "1.0.147", features = ["derive"] }
 tokio = { version = "1.22.0", features = ["full"] }
 tracing = "0.1.37"
