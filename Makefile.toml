@@ -1,4 +1,7 @@
-env_files = [{ path = "./env/dev.env", profile = "development" }]
+env_files = [
+  { path = "./env/dev.env", profile = "development" },
+  { path = "./env/prod.env", profile = "production" },
+]
 
 [tasks.build]
 command = "cargo"
@@ -12,13 +15,13 @@ workspace = false
 
 [tasks.watch]
 command = "cargo"
-args = ["run"]
+args = ["run", "--bin", "minipub"]
 watch = { watch = ["./packages/"] }
 workspace = false
 
 [tasks.tunnel]
-command = "lt"
-args = ["--port", "${PORT}", "-s", "${LOCALTUNNEL_SUBDOMAIN}"]
+command = "cloudflared"
+args = ["--config", "~/.cloudflared/config.yml", "minipub-local"]
 workspace = false
 
 [tasks.start-mysql]
@@ -33,6 +36,6 @@ workspace = false
 script_runner = "@duckscript"
 script = '''
 set_env DATABASE_URL ${DB_URL}/${DB_NAME}
-exec sea-orm-cli migrate refresh
+exec sea-orm-cli migrate ${1}
 '''
 workspace = false
